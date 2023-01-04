@@ -1,0 +1,16 @@
+.menu_link {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    color: red;
+    border-radius:30%;
+    background-color: white;
+    text-decoration: none;
+    transition: .3s;
+    padding: 8px;
+}
+.menu_link:hover {
+    color: white;
+    background-color: red;
+    border-radius:30%;
+}

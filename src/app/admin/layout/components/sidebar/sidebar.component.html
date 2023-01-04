@@ -1,1 +1,15 @@
-<p>sidebar works!</p>
+<!-- <ul>
+    <li><a [routerLink]="['/admin']">Dashboard</a></li>
+    <li><a [routerLink]="['/admin/products']">Products</a></li>
+    <li><a [routerLink]="['/admin/orders']">Orders</a></li>
+    <li><a [routerLink]="['/admin/customers']">Customers</a></li>
+    <li><a [routerLink]="['']">Siteyi Gor</a></li>
+</ul> -->
+
+<mat-list role="list">
+    <mat-list-item role="listitem"><a [routerLink]="['/admin']" class="menu_link">Dashboard</a></mat-list-item>
+    <mat-list-item role="listitem"><a [routerLink]="['/admin/products']" class="menu_link">Products</a></mat-list-item>
+    <mat-list-item role="listitem"><a [routerLink]="['/admin/orders']" class="menu_link">Orders</a></mat-list-item>
+    <mat-list-item role="listitem"><a [routerLink]="['/admin/customers']" class="menu_link">Customers</a></mat-list-item>
+    <mat-list-item role="listitem"><a [routerLink]="['']" class="menu_link">Siteyi Gor</a></mat-list-item>
+  </mat-list>

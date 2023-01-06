@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
@@ -16,7 +17,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
         CommonModule,
         ComponentsModule,
         RouterModule,
-        MatSidenavModule
+        MatSidenavModule,
+        FontAwesomeModule
     ],
     exports:[
       LayoutComponent

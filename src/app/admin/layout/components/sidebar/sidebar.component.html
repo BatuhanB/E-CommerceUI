@@ -6,10 +6,21 @@
     <li><a [routerLink]="['']">Siteyi Gor</a></li>
 </ul> -->
 
-<mat-list role="list">
-    <mat-list-item role="listitem"><a [routerLink]="['/admin']" class="menu_link">Dashboard</a></mat-list-item>
-    <mat-list-item role="listitem"><a [routerLink]="['/admin/products']" class="menu_link">Products</a></mat-list-item>
-    <mat-list-item role="listitem"><a [routerLink]="['/admin/orders']" class="menu_link">Orders</a></mat-list-item>
-    <mat-list-item role="listitem"><a [routerLink]="['/admin/customers']" class="menu_link">Customers</a></mat-list-item>
-    <mat-list-item role="listitem"><a [routerLink]="['']" class="menu_link">Siteyi Gor</a></mat-list-item>
-  </mat-list>
+<mat-list role="list" class="sidenav">
+    <mat-list-item role="listitem">
+        <fa-icon [icon]="dashboardIcon"></fa-icon>
+        <a [routerLink]="['/admin']" class="menu_link">Dashboard</a>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+        <a [routerLink]="['/admin/products']" class="menu_link">Products</a>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+        <a [routerLink]="['/admin/orders']" class="menu_link">Orders</a>
+    </mat-list-item>
+    <mat-list-item role="listitem">
+        <a [routerLink]="['/admin/customers']" class="menu_link">Customers</a>
+        </mat-list-item>
+    <mat-list-item role="listitem">
+        <a [routerLink]="['']" class="menu_link">Siteyi Gor</a>
+    </mat-list-item>
+</mat-list>

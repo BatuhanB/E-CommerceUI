@@ -19,23 +19,68 @@ export class CustomHttpClientService {
     }`;
   }
 
-  get<T>(requestParameters: RequestParameters, id?: string): Observable<T> {
+  get<T>(
+    requestParameters: Partial<RequestParameters>,
+    id?: string
+  ): Observable<T> {
     let url: string = '';
     if (requestParameters.fullEndpoint) {
       url = requestParameters.fullEndpoint;
     } else {
-      url = `${id ? `/${id}` : ''}`;
+      url = `${requestParameters}${id ? `/${id}` : ''}`;
     }
     return this.httpClient.get<T>(url, {
       headers: requestParameters.headers,
       responseType: requestParameters.responseType as 'json',
     });
   }
-  put() {}
+  put<T>(
+    requestParameters: Partial<RequestParameters>,
+    body: Partial<T>
+  ): Observable<T> {
+    let url = '';
+    if (requestParameters.fullEndpoint) {
+      url = requestParameters.fullEndpoint;
+    } else {
+      url = `${requestParameters}`;
+    }
+    return this.httpClient.put<T>(url, body, {
+      headers: requestParameters.headers,
+      responseType: requestParameters.responseType as 'json',
+    });
+  }
 
-  delete() {}
+  delete<T>(
+    requestParameters: Partial<RequestParameters>,
+    id: string
+  ): Observable<T> {
+    let url = '';
+    if (requestParameters.fullEndpoint) {
+      url = requestParameters.fullEndpoint;
+    } else {
+      url = `${requestParameters}/${id}`;
+    }
+    return this.httpClient.delete<T>(url, {
+      headers: requestParameters.headers,
+      responseType: requestParameters.responseType as 'json',
+    });
+  }
 
-  post() {}
+  post<T>(
+    requestParameters: Partial<RequestParameters>,
+    body: Partial<T>
+  ): Observable<T> {
+    let url = '';
+    if (requestParameters.fullEndpoint) {
+      url = requestParameters.fullEndpoint;
+    } else {
+      url = `${requestParameters}`;
+    }
+    return this.httpClient.post<T>(url, body, {
+      headers: requestParameters.headers,
+      responseType: requestParameters.responseType as 'json',
+    });
+  }
 }
 
 export class RequestParameters {

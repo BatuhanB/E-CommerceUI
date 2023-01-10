@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,9 +21,8 @@ import { ToastrModule } from 'ngx-toastr';
     UiModule,
     FontAwesomeModule,
     HttpClientModule,
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
-    }),
+    NgxSpinnerModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     {

@@ -31,7 +31,9 @@
               "@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.scss",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "./node_modules/ngx-toastr/toastr.css"
+              "./node_modules/ngx-toastr/toastr.css",
+              "./node_modules/ngx-spinner/animations/ball-clip-rotate.css",
+              "./node_modules/ngx-spinner/animations/square-loader.css"
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",

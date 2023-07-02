@@ -6,6 +6,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import {MatListModule} from '@angular/material/list';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -19,7 +21,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CommonModule,
     RouterModule,
     MatListModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatIconModule,
+    MatToolbarModule
   ],
   exports:[
     HeaderComponent,

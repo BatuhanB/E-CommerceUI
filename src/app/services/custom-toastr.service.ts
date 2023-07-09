@@ -10,9 +10,9 @@ export class CustomToastrService {
   message(
     message: string,
     title: string,
-    toastrOptions: ToastrOptions
+    toastrOptions: Partial<ToastrOptions>
   ) {
-    this.toastr[toastrOptions.messageType](message, title, {
+    this.toastr[toastrOptions.messageType as ToastrMessageType](message, title, {
       positionClass: toastrOptions.position,
       closeButton:toastrOptions.closeButton,
       easing:toastrOptions.easing,
@@ -22,9 +22,9 @@ export class CustomToastrService {
     });
   }
 }
-export interface ToastrOptions {
-  messageType: ToastrMessageType;
-  position: ToastrPosition;
+export class ToastrOptions {
+  messageType: ToastrMessageType = ToastrMessageType.Success;
+  position: ToastrPosition = ToastrPosition.BottomRight;
   progressBar?: boolean;
   tapToDismiss?: boolean;
   easing?: string;

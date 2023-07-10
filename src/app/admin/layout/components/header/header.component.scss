@@ -1,3 +1,35 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+
+.menu-icon{
+  border:rgba($color: #ffffff, $alpha: 1);
+  border-radius: 2px;
+  color: red;
+  background-color: white;
+  margin-left: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.logout-icon{
+  border: 0.5px solid rgba($color: #000000, $alpha: 0.2);
+  border-radius: 4px;
+  color: rgb(209, 3, 3);
+  background-color: white;
+  margin-left: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.title{
+  margin-left: 10px;
+  font-weight: 700;
+  color: white;
+}
+.menu-background{
+  background-color: rgba($color: #ff0303, $alpha: 0.6);
+}

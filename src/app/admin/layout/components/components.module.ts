@@ -19,11 +19,11 @@ import {MatIconModule} from '@angular/material/icon';
   ],
   imports: [
     CommonModule,
-    RouterModule,
     MatListModule,
     FontAwesomeModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    RouterModule
   ],
   exports:[
     HeaderComponent,

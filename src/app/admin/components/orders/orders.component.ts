@@ -10,6 +10,10 @@ export class OrdersComponent implements OnInit {
   constructor(private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
+
+  }
+
+  spinnerMet(){
     this.spinner.show('spinner1');
 
     setTimeout(() => {

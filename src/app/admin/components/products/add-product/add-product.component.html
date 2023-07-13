@@ -1,0 +1,41 @@
+<div class="container">
+    <h2 class="heading">Add Product</h2>
+    <form class="product-form" [formGroup]="productForm">
+        <mat-form-field class="product-full-width">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput placeholder="product name" formControlName="name">
+            <mat-hint>Product Name</mat-hint>
+            <mat-error *ngIf="productForm.hasError('name') && !productForm.hasError('required')">
+                Please enter product name
+            </mat-error>
+            <mat-error *ngIf="productForm.hasError('required')">
+                Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="product-full-width">
+            <mat-label>Stock</mat-label>
+            <input type="number" matInput placeholder="product stock" formControlName="stock">
+            <mat-hint>Product Stock</mat-hint>
+            <mat-error *ngIf="productForm.hasError('stock') && !productForm.hasError('required')">
+                Please enter product stock
+            </mat-error>
+            <mat-error *ngIf="productForm.hasError('required')">
+                Stock is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="product-full-width">
+            <mat-label>Price</mat-label>
+            <input type="number" matInput placeholder="product price" formControlName="price">
+            <mat-hint>Product Price</mat-hint>
+            <mat-error *ngIf="productForm.hasError('price') && !productForm.hasError('required')">
+                Please enter product price
+            </mat-error>
+            <mat-error *ngIf="productForm.hasError('required')">
+                Price is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+    </form>
+    <button mat-raised-button color="accent" class="submit-button">Submit</button>
+</div>

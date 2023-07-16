@@ -13,7 +13,7 @@ export class AddProductComponent implements OnInit {
   productsModel: ListProduct[];
 
   productForm = this.form.group({
-    name: ['', [Validators.required, Validators.minLength(3)]],
+    name: ['', [Validators.required]],
     stock: ['', [Validators.required]],
     price: ['', [Validators.required]],
     isActive: [''],
@@ -23,10 +23,7 @@ export class AddProductComponent implements OnInit {
     this.getProducts();
   }
 
-  constructor(
-    private form: FormBuilder,
-    private service:ProductService
-  ) {}
+  constructor(private form: FormBuilder, private service: ProductService) {}
 
   saveOrUpdate() {
     if (this.productForm.valid) {
@@ -47,17 +44,19 @@ export class AddProductComponent implements OnInit {
 
   getProducts() {
     this.service.getAll().subscribe({
-      next:(val)=>{
+      next: (val) => {
         this.productsModel = val;
-      }
-    })
+      },
+    });
   }
+
 
   clearForm() {
     this.selectedId = 0;
-    // this.productForm.get("name")?.setValue('');
+    this.productForm.get("name")?.setValue('');
     // this.productForm.get("stock")?.setValue(0);
     // this.productForm.get("price")?.setValue(0);
     // this.productForm.get("isActive")?.setValue(false);
   }
 }
+

@@ -1,7 +1,11 @@
 import { Observable } from 'rxjs';
 import { CustomHttpClientService } from './../../services/custom-http-client.service';
 import { Injectable } from '@angular/core';
-import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/custom-toastr.service';
+import {
+  CustomToastrService,
+  ToastrMessageType,
+  ToastrPosition,
+} from 'src/app/services/custom-toastr.service';
 import { ListProduct } from '../components/products/productmodels/list-products';
 
 @Injectable({
@@ -13,7 +17,7 @@ export class ProductService {
     private toastr: CustomToastrService
   ) {}
 
-  add(model: object) {
+  add(model: object,successCallBack?: () => void) {
     this.http
       .post<object>(
         {
@@ -25,6 +29,7 @@ export class ProductService {
       .subscribe({
         next: (res) => {
           if (res) {
+            successCallBack();
             this.toastr.message(
               'Product has been added successfully!',
               'Successfull!',
@@ -42,10 +47,21 @@ export class ProductService {
             });
           }
         },
+        error: (err) => {
+          const _errors: Array<{ key: string; value: Array<string> }> =
+            err.error;
+            _errors.forEach(x => {
+              this.toastr.message(`${x.value}`, `Error at ${x.key}!`, {
+                closeButton: true,
+                messageType: ToastrMessageType.Error,
+                position: ToastrPosition.BottomRight,
+              });
+            });
+        },
       });
   }
 
-  update(model:object){
+  update(model: object,successCallBack?:() => void) {
     this.http
       .put<object>(
         {
@@ -57,6 +73,7 @@ export class ProductService {
       .subscribe({
         next: (res) => {
           if (res) {
+            successCallBack();
             this.toastr.message(
               'Product has been successfully updated!',
               'Successfull!',
@@ -66,8 +83,6 @@ export class ProductService {
                 position: ToastrPosition.BottomRight,
               }
             );
-            // this.clearForm();
-            // this.getProducts();
           } else {
             this.toastr.message('Product could not updated!', 'Error!', {
               closeButton: true,
@@ -76,13 +91,24 @@ export class ProductService {
             });
           }
         },
+        error: (err) => {
+          const _errors: Array<{ key: string; value: Array<string> }> =
+            err.error;
+            _errors.forEach(x => {
+              this.toastr.message(`${x.value}`, `Error at ${x.key}!`, {
+                closeButton: true,
+                messageType: ToastrMessageType.Error,
+                position: ToastrPosition.BottomRight,
+              });
+            });
+        },
       });
   }
 
-  getAll():Observable<ListProduct[]>{
+  getAll(): Observable<ListProduct[]> {
     return this.http.get<ListProduct[]>({
-        controller: 'Products',
-        action: 'GetAll',
-      });
+      controller: 'Products',
+      action: 'GetAll',
+    });
   }
 }

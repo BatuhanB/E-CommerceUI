@@ -36,6 +36,7 @@
                 Price is <strong>required</strong>
             </mat-error>
         </mat-form-field>
+        <mat-slide-toggle formControlName="isActive">Is Active ?</mat-slide-toggle>
     </form>
-    <button mat-raised-button color="accent" class="submit-button">Submit</button>
+    <button mat-raised-button color="accent" class="submit-button" (click)="saveOrUpdate()">Submit</button>
 </div>

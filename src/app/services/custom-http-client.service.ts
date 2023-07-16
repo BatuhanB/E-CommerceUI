@@ -10,85 +10,60 @@ export class CustomHttpClientService {
     private httpClient: HttpClient,
     @Inject('baseUrl') private baseUrl: string
   ) {}
-
-  private url(requestParameters: Partial<RequestParameters>): string {
-    return `${
-      requestParameters.baseUrl ? requestParameters.baseUrl : this.baseUrl
-    }/${requestParameters.controller}${
-      requestParameters.action ? `/${requestParameters.action}` : ''
-    }`;
+  private url(requestParameter: Partial<RequestParameters>): string {
+    return `${requestParameter.baseUrl ? requestParameter.baseUrl : this.baseUrl}/${requestParameter.controller}${requestParameter.action ? `/${requestParameter.action}` : ""}`;
   }
 
-  get<T>(
-    requestParameters: Partial<RequestParameters>,
-    id?: string
-  ): Observable<T> {
-    let url: string = '';
-    if (requestParameters.fullEndpoint) {
-      url = requestParameters.fullEndpoint;
-    } else {
-      url = `${requestParameters}${id ? `/${id}` : ''}`;
-    }
-    return this.httpClient.get<T>(url, {
-      headers: requestParameters.headers,
-      responseType: requestParameters.responseType as 'json',
-    });
-  }
-  put<T>(
-    requestParameters: Partial<RequestParameters>,
-    body: Partial<T>
-  ): Observable<T> {
-    let url = '';
-    if (requestParameters.fullEndpoint) {
-      url = requestParameters.fullEndpoint;
-    } else {
-      url = `${requestParameters}`;
-    }
-    return this.httpClient.put<T>(url, body, {
-      headers: requestParameters.headers,
-      responseType: requestParameters.responseType as 'json',
-    });
+  get<T>(requestParameter: Partial<RequestParameters>, id?: string): Observable<T> {
+    let url: string = "";
+    if (requestParameter.fullEndPoint)
+      url = requestParameter.fullEndPoint;
+    else
+      url = `${this.url(requestParameter)}${id ? `/${id}` : ""}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+
+    return this.httpClient.get<T>(url, { headers: requestParameter.headers, responseType: requestParameter.responseType as 'json' });
   }
 
-  delete<T>(
-    requestParameters: Partial<RequestParameters>,
-    id: string
-  ): Observable<T> {
-    let url = '';
-    if (requestParameters.fullEndpoint) {
-      url = requestParameters.fullEndpoint;
-    } else {
-      url = `${requestParameters}/${id}`;
-    }
-    return this.httpClient.delete<T>(url, {
-      headers: requestParameters.headers,
-      responseType: requestParameters.responseType as 'json',
-    });
+  post<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>): Observable<T> {
+    let url: string = "";
+    if (requestParameter.fullEndPoint)
+      url = requestParameter.fullEndPoint;
+    else
+      url = `${this.url(requestParameter)}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`
+
+    return this.httpClient.post<T>(url, body, { headers: requestParameter.headers, responseType: requestParameter.responseType as 'json' });
   }
 
-  post<T>(
-    requestParameters: Partial<RequestParameters>,
-    body: Partial<T>
-  ): Observable<T> {
-    let url = '';
-    if (requestParameters.fullEndpoint) {
-      url = requestParameters.fullEndpoint;
-    } else {
-      url = `${requestParameters}`;
-    }
-    return this.httpClient.post<T>(url, body, {
-      headers: requestParameters.headers,
-      responseType: requestParameters.responseType as 'json',
-    });
+  put<T>(requestParameter: Partial<RequestParameters>, body: Partial<T>): Observable<T> {
+    let url: string = "";
+    if (requestParameter.fullEndPoint)
+      url = requestParameter.fullEndPoint;
+    else
+      url = `${this.url(requestParameter)}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+
+    return this.httpClient.put<T>(url, body, { headers: requestParameter.headers, responseType: requestParameter.responseType as 'json' });
+  }
+
+  delete<T>(requestParameter: Partial<RequestParameters>, id: string): Observable<T> {
+    let url: string = "";
+    if (requestParameter.fullEndPoint)
+      url = requestParameter.fullEndPoint;
+    else
+      url = `${this.url(requestParameter)}/${id}${requestParameter.queryString ? `?${requestParameter.queryString}` : ""}`;
+
+    return this.httpClient.delete<T>(url, { headers: requestParameter.headers, responseType: requestParameter.responseType as 'json' });
   }
 }
+
 
 export class RequestParameters {
   controller?: string;
   action?: string;
+  queryString?: string;
 
   headers?: HttpHeaders;
   baseUrl?: string;
-  fullEndpoint?: string;
+  fullEndPoint?: string;
+
   responseType?: string = 'json';
 }

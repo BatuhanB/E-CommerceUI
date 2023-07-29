@@ -34,9 +34,21 @@
         </ng-container>
 
         <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef> Update </th>
-            <td mat-cell *matCellDef="let element"> <button class="btn btn-warning"
-                    (click)="getById(element.id)">Update</button></td>
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element">
+                <a class="btn btn-warning" >
+                    <fa-icon [icon]="penIcon" (click)="getById(element.id)" style="color:rgb(51, 51, 51);">Update</fa-icon>
+                </a>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element" appDelete>
+                <!-- <a class="btn btn-danger">
+                    <fa-icon [icon]="trashIcon" (click)="delete(element.id,$event)">Delete</fa-icon>
+                </a> -->
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

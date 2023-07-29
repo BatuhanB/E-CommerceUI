@@ -37,6 +37,7 @@ export class ProductService {
                 closeButton: true,
                 messageType: ToastrMessageType.Success,
                 position: ToastrPosition.BottomRight,
+                timeOut:1500
               }
             );
             successCallBack();
@@ -45,6 +46,7 @@ export class ProductService {
               closeButton: true,
               messageType: ToastrMessageType.Error,
               position: ToastrPosition.BottomRight,
+              timeOut:1500
             });
           }
         },
@@ -56,6 +58,7 @@ export class ProductService {
                 closeButton: true,
                 messageType: ToastrMessageType.Error,
                 position: ToastrPosition.BottomRight,
+                timeOut:1500
               });
             });
         },
@@ -82,6 +85,7 @@ export class ProductService {
                 closeButton: true,
                 messageType: ToastrMessageType.Success,
                 position: ToastrPosition.BottomRight,
+                timeOut:1500
               }
             );
           } else {
@@ -89,6 +93,7 @@ export class ProductService {
               closeButton: true,
               messageType: ToastrMessageType.Error,
               position: ToastrPosition.BottomRight,
+              timeOut:1500
             });
           }
         },
@@ -100,6 +105,7 @@ export class ProductService {
                 closeButton: true,
                 messageType: ToastrMessageType.Error,
                 position: ToastrPosition.BottomRight,
+                timeOut:1500
               });
             });
         },

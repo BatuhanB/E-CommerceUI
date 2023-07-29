@@ -1,5 +1,5 @@
 import { ProductService } from './../../../services/product.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ListProduct } from '../productmodels/list-products';
 
@@ -8,10 +8,11 @@ import { ListProduct } from '../productmodels/list-products';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
 })
-export class AddProductComponent implements OnInit {
+export class AddProductComponent implements OnInit{
+  
   selectedId: number;
   productsModel: ListProduct[];
-  selectedProduct:ListProduct;
+  @Input() selectedProduct:ListProduct;
   @Output() createdProduct: EventEmitter<any> = new EventEmitter();
 
   productForm = this.form.group({
@@ -22,10 +23,13 @@ export class AddProductComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    
+    
     this.setProduct(this.selectedProduct);
   }
 
   constructor(private form: FormBuilder, private service: ProductService) {}
+
 
   saveOrUpdate() {
     if (this.productForm.valid) {
@@ -38,19 +42,22 @@ export class AddProductComponent implements OnInit {
       });
       if (this.selectedId > 0) {
         this.service.update(returnModel);
-        this.createdProduct.emit(returnModel);
+        console.log(this.selectedId);
+        
+        this.createdProduct.emit();
       } else {
         this.service.add(returnModel,this.clearForm);
-        this.createdProduct.emit(returnModel);
+        console.log(this.selectedId);
+        this.createdProduct.emit();
       }
     }
   }
 
   setProduct(product:ListProduct){
-    this.productForm.controls.name.setValue(product.name);
-    this.productForm.controls.price.setValue(product.price.toString());
-    this.productForm.controls.stock.setValue(product.stock.toString());
-    this.productForm.controls.isActive.setValue(product.isActive.toString());
+    // this.productForm.controls.name.setValue(product.name);
+    // this.productForm.controls.price.setValue(product.price.toString());
+    // this.productForm.controls.stock.setValue(product.stock.toString());
+    // this.productForm.controls.isActive.setValue(product.isActive.toString());
   }
 
   clearForm() {

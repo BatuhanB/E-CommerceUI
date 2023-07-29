@@ -12,13 +12,15 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DeleteDirective } from '../../directives/delete.directive';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     AddProductComponent,
     ListProductComponent,
-    
+    DeleteDirective
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    FontAwesomeModule,
     RouterModule.forChild([
       {path:'',component:ProductsComponent}
     ])

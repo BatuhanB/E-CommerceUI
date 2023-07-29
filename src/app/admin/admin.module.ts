@@ -2,9 +2,12 @@ import { ComponentsModule } from './layout/components/components.module';
 import { LayoutModule } from './layout/layout.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DeleteDirective } from './directives/delete.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    
+  ],
   imports: [
     CommonModule,
     LayoutModule,

@@ -6,6 +6,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListProduct } from '../productmodels/list-products';
 import { ProductService } from 'src/app/admin/services/product.service';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 declare var $: any;
 @Component({
@@ -15,6 +16,9 @@ declare var $: any;
 })
 export class ListProductComponent implements OnInit, AfterViewInit {
   listModel: ListProduct[];
+  
+  trashIcon = faTrash;
+  penIcon = faPenToSquare;
 
   displayedColumns: string[] = [
     'name',
@@ -23,12 +27,15 @@ export class ListProductComponent implements OnInit, AfterViewInit {
     'isActive',
     'createDate',
     'updatedDate',
-    'select'
+    'select',
+    'delete'
   ];
   dataSource = new MatTableDataSource<ListProduct>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @Output() listProduct: EventEmitter<any> = new EventEmitter();
+  selectedProduct: ListProduct;
 
   ngOnInit(): void {
     this.getAll();
@@ -66,9 +73,14 @@ export class ListProductComponent implements OnInit, AfterViewInit {
   getById(id:string){
     this.service.getById(id).subscribe({
       next:(data) => {
-        this.service.setSelectedProduct(data);
+        this.selectedProduct = data;
+        this.onSelectedProduct();
       }
     })
+  }
+
+  onSelectedProduct(){
+    this.listProduct.emit(this.selectedProduct);
   }
 
   pageChanged(){

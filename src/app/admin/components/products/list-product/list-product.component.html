@@ -22,19 +22,28 @@
         </ng-container>
 
         <ng-container matColumnDef="createDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by createDate"> Create Date </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by createDate"> Create
+                Date </th>
             <td mat-cell *matCellDef="let element"> {{element.createDate | date:'dd/MM/yyyy'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="updatedDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by updatedDate"> Updated Date </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by updatedDate"> Updated
+                Date </th>
             <td mat-cell *matCellDef="let element"> {{element.updatedDate | date:'dd/MM/yyyy'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef> Update </th>
+            <td mat-cell *matCellDef="let element"> <button class="btn btn-warning"
+                    (click)="getById(element.id)">Update</button></td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator (page)="pageChanged()" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons
+        aria-label="Select page of periodic elements">
     </mat-paginator>
 </div>

@@ -1,5 +1,5 @@
 import { ProductService } from './../../../services/product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ListProduct } from '../productmodels/list-products';
 
@@ -11,6 +11,8 @@ import { ListProduct } from '../productmodels/list-products';
 export class AddProductComponent implements OnInit {
   selectedId: number;
   productsModel: ListProduct[];
+  selectedProduct:ListProduct;
+  @Output() createdProduct: EventEmitter<any> = new EventEmitter();
 
   productForm = this.form.group({
     name: ['', [Validators.required]],
@@ -20,7 +22,7 @@ export class AddProductComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.getProducts();
+    this.setProduct(this.selectedProduct);
   }
 
   constructor(private form: FormBuilder, private service: ProductService) {}
@@ -36,20 +38,20 @@ export class AddProductComponent implements OnInit {
       });
       if (this.selectedId > 0) {
         this.service.update(returnModel);
+        this.createdProduct.emit(returnModel);
       } else {
-        this.service.add(returnModel);
+        this.service.add(returnModel,this.clearForm);
+        this.createdProduct.emit(returnModel);
       }
     }
   }
 
-  getProducts() {
-    this.service.getAll().subscribe({
-      next: (val) => {
-        this.productsModel = val;
-      },
-    });
+  setProduct(product:ListProduct){
+    this.productForm.controls.name.setValue(product.name);
+    this.productForm.controls.price.setValue(product.price.toString());
+    this.productForm.controls.stock.setValue(product.stock.toString());
+    this.productForm.controls.isActive.setValue(product.isActive.toString());
   }
-
 
   clearForm() {
     this.selectedId = 0;

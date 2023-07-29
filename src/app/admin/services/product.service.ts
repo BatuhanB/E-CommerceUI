@@ -12,6 +12,7 @@ import { ListProduct } from '../components/products/productmodels/list-products'
   providedIn: 'root',
 })
 export class ProductService {
+  selectedProduct:any;
   constructor(
     private http: CustomHttpClientService,
     private toastr: CustomToastrService
@@ -29,7 +30,6 @@ export class ProductService {
       .subscribe({
         next: (res) => {
           if (res) {
-            successCallBack();
             this.toastr.message(
               'Product has been added successfully!',
               'Successfull!',
@@ -39,6 +39,7 @@ export class ProductService {
                 position: ToastrPosition.BottomRight,
               }
             );
+            successCallBack();
           } else {
             this.toastr.message('Product could not added!', 'Error!', {
               closeButton: true,
@@ -73,7 +74,7 @@ export class ProductService {
       .subscribe({
         next: (res) => {
           if (res) {
-            successCallBack();
+            //successCallBack();
             this.toastr.message(
               'Product has been successfully updated!',
               'Successfull!',
@@ -105,10 +106,26 @@ export class ProductService {
       });
   }
 
-  getAll(): Observable<ListProduct[]> {
-    return this.http.get<ListProduct[]>({
+  getAll(pageNumber:number = 0,pageSize:number = 10): Observable<{totalCount:number;data:ListProduct[]}> {
+    return this.http.get<{totalCount:number;data:ListProduct[]}>({
       controller: 'Products',
       action: 'GetAll',
+      queryString:`page=${pageNumber}&size=${pageSize}`
     });
+  }
+
+  getById(id:string): Observable<ListProduct> {
+    return this.http.get<ListProduct>({
+      controller: 'Products',
+      action: 'Get'
+    },id);
+  }
+
+  setSelectedProduct(product: any) {
+    this.selectedProduct = product;
+  }
+
+  getSelectedProduct() {
+    return this.selectedProduct;
   }
 }

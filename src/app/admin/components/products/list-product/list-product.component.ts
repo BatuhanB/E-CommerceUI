@@ -1,5 +1,6 @@
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -22,6 +23,7 @@ export class ListProductComponent implements OnInit, AfterViewInit {
     'isActive',
     'createDate',
     'updatedDate',
+    'select'
   ];
   dataSource = new MatTableDataSource<ListProduct>();
 
@@ -33,7 +35,8 @@ export class ListProductComponent implements OnInit, AfterViewInit {
   }
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
-    private service: ProductService
+    private service: ProductService,
+    private spinnerService:NgxSpinnerService
   ) {}
 
   ngAfterViewInit(): void {}
@@ -47,13 +50,28 @@ export class ListProductComponent implements OnInit, AfterViewInit {
   }
 
   getAll() {
-    this.service.getAll().subscribe({
+    this.spinnerService.show('spinner1');
+    let pageNumber = this.paginator ? this.paginator.pageIndex : 0;
+    let pageSize = this.paginator ? this.paginator.pageSize : 10;
+    this.service.getAll(pageNumber + 1,pageSize).subscribe({
       next: (data) => {
-        this.listModel = data;
-        this.dataSource.data = this.listModel;
-        this.dataSource.paginator = this.paginator;
+        this.spinnerService.hide('spinner1');
+        this.dataSource.data = data.data;
         this.dataSource.sort = this.sort;
+        this.paginator.length = data.totalCount;
       },
     });
+  }
+
+  getById(id:string){
+    this.service.getById(id).subscribe({
+      next:(data) => {
+        this.service.setSelectedProduct(data);
+      }
+    })
+  }
+
+  pageChanged(){
+    this.getAll();
   }
 }

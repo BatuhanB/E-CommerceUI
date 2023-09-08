@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListProductComponent } from './list-product/list-product.component';
-import { AddProductComponent } from './add-product/add-product.component';
-import { ListProduct } from './productmodels/list-products';
-import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-products',

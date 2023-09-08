@@ -84,7 +84,7 @@ export class ListProductComponent implements OnInit, AfterViewInit {
     let td = <HTMLTableCellElement> target.closest('tr').childNodes.item(1).parentElement;
     $(td).fadeOut(1000);
   }
-
+  
   onSelectedProduct(){
     this.listProduct.emit(this.selectedProduct);
   }

@@ -8,8 +8,9 @@ import { ListProduct } from '../productmodels/list-products';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
 })
+
 export class AddProductComponent implements OnInit{
-  
+
   selectedId: number;
   productsModel: ListProduct[];
   @Input() selectedProduct:ListProduct;
@@ -29,6 +30,10 @@ export class AddProductComponent implements OnInit{
   }
 
   constructor(private form: FormBuilder, private service: ProductService) {}
+  
+  ngAfterViewInit(): void {
+    console.log(this.selectedProduct);
+  }
 
 
   saveOrUpdate() {

@@ -31,10 +31,6 @@ export class AddProductComponent implements OnInit{
 
   constructor(private form: FormBuilder, private service: ProductService) {}
   
-  ngAfterViewInit(): void {
-    console.log(this.selectedProduct);
-  }
-
 
   saveOrUpdate() {
     if (this.productForm.valid) {

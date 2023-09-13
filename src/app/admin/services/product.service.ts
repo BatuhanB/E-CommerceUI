@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { CustomHttpClientService } from './../../services/custom-http-client.service';
 import { Injectable } from '@angular/core';
 import {
@@ -127,11 +127,12 @@ export class ProductService {
     },id);
   }
 
-  setSelectedProduct(product: any) {
-    this.selectedProduct = product;
-  }
+  async delete(id:string){
+    const obsrvbl= this.http.delete<any>({
+      controller:"Products",
+      action:"Delete"
+    },id);
 
-  getSelectedProduct() {
-    return this.selectedProduct;
+    await firstValueFrom(obsrvbl);
   }
 }

@@ -44,7 +44,7 @@
 
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef>  </th>
-            <td [id]="element.id" mat-cell *matCellDef="let element" appDelete (updateTable)="getAll()">
+            <td [id]="element.id" [name]="element.name" mat-cell *matCellDef="let element" appDelete (updateTable)="getAll()">
                 <!-- <a class="btn btn-danger">
                     <fa-icon [icon]="trashIcon" (click)="delete(element.id,$event)">Delete</fa-icon>
                 </a> -->

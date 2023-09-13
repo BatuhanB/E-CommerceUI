@@ -14,13 +14,16 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DeleteDirective } from '../../directives/delete.directive';
+import {MatDialogModule} from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
     ProductsComponent,
     AddProductComponent,
     ListProductComponent,
-    DeleteDirective
+    DeleteDirective,
+    DeleteDialogComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +36,7 @@ import { DeleteDirective } from '../../directives/delete.directive';
     MatPaginatorModule,
     MatSortModule,
     FontAwesomeModule,
+    MatDialogModule,
     RouterModule.forChild([
       {path:'',component:ProductsComponent}
     ])

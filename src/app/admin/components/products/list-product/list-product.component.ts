@@ -16,7 +16,7 @@ declare var $: any;
 })
 export class ListProductComponent implements OnInit, AfterViewInit {
   listModel: ListProduct[];
-  
+
   trashIcon = faTrash;
   penIcon = faPenToSquare;
 
@@ -43,10 +43,10 @@ export class ListProductComponent implements OnInit, AfterViewInit {
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
     private service: ProductService,
-    private spinnerService:NgxSpinnerService
-  ) {}
+    private spinnerService: NgxSpinnerService
+  ) { }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
@@ -56,40 +56,43 @@ export class ListProductComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getAll() {
+  async getAll() {
     this.spinnerService.show('spinner1');
     let pageNumber = this.paginator ? this.paginator.pageIndex : 0;
     let pageSize = this.paginator ? this.paginator.pageSize : 10;
-    this.service.getAll(pageNumber + 1,pageSize).subscribe({
-      next: (data) => {
-        this.spinnerService.hide('spinner1');
-        this.dataSource.data = data.data;
-        this.dataSource.sort = this.sort;
-        this.paginator.length = data.totalCount;
-      },
-    });
+
+    const data: { totalCount: number, data: ListProduct[] } =
+    await this.service.getAll(pageNumber + 1, pageSize, this.onSuccess);
+    this.dataSource.data = data.data;
+    this.dataSource.sort = this.sort;
+    this.paginator.length = data.totalCount;
   }
 
-  getById(id:string){
+  onSuccess = () => {
+    this.spinnerService.hide('spinner1');
+    console.log("getAll method triggered by event emitter!");
+  }
+
+  getById(id: string) {
     this.service.getById(id).subscribe({
-      next:(data) => {
+      next: (data) => {
         this.selectedProduct = data;
         this.onSelectedProduct();
       }
     })
   }
 
-  delete(id:string,event:MouseEvent){
-    let target = <HTMLSelectElement> event.target;
-    let td = <HTMLTableCellElement> target.closest('tr').childNodes.item(1).parentElement;
+  delete(id: string, event: MouseEvent) {
+    let target = <HTMLSelectElement>event.target;
+    let td = <HTMLTableCellElement>target.closest('tr').childNodes.item(1).parentElement;
     $(td).fadeOut(1000);
   }
-  
-  onSelectedProduct(){
+
+  onSelectedProduct() {
     this.listProduct.emit(this.selectedProduct);
   }
 
-  pageChanged(){
+  pageChanged() {
     this.getAll();
   }
 }

@@ -4,7 +4,7 @@
         <mat-form-field class="product-full-width">
             <mat-label>Name</mat-label>
             <input type="text" matInput placeholder="product name" formControlName="name">
-            <mat-hint>Product Name</mat-hint>
+            <!-- <mat-hint>Product Name</mat-hint> -->
             <mat-error *ngIf="productForm.hasError('name') && !productForm.hasError('required')">
                 Please enter product name
             </mat-error>
@@ -16,7 +16,7 @@
         <mat-form-field class="product-full-width">
             <mat-label>Stock</mat-label>
             <input type="number" matInput placeholder="product stock" formControlName="stock">
-            <mat-hint>Product Stock</mat-hint>
+            <!-- <mat-hint>Product Stock</mat-hint> -->
             <mat-error *ngIf="productForm.hasError('stock') && !productForm.hasError('required')">
                 Please enter product stock
             </mat-error>
@@ -28,7 +28,7 @@
         <mat-form-field class="product-full-width">
             <mat-label>Price</mat-label>
             <input type="number" matInput placeholder="product price" formControlName="price">
-            <mat-hint>Product Price</mat-hint>
+            <!-- <mat-hint>Product Price</mat-hint> -->
             <mat-error *ngIf="productForm.hasError('price') && !productForm.hasError('required')">
                 Please enter product price
             </mat-error>
@@ -38,5 +38,5 @@
         </mat-form-field>
         <mat-slide-toggle formControlName="isActive">Is Active ?</mat-slide-toggle>
     </form>
-    <button mat-raised-button color="accent" class="submit-button" (click)="saveOrUpdate()">Submit</button>
+    <button mat-raised-button color="accent" class="submit-button" (click)="create()">Submit</button>
 </div>

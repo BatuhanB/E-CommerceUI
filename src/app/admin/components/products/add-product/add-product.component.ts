@@ -1,7 +1,8 @@
 import { ProductService } from './../../../services/product.service';
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListProduct } from '../productmodels/list-products';
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from 'src/app/services/custom-toastr.service';
 
 @Component({
   selector: 'app-add-product',
@@ -9,64 +10,71 @@ import { ListProduct } from '../productmodels/list-products';
   styleUrls: ['./add-product.component.scss'],
 })
 
-export class AddProductComponent implements OnInit{
+export class AddProductComponent implements OnInit {
 
-  selectedId: number;
+  selectedId: string;
   productsModel: ListProduct[];
-  @Input() selectedProduct:ListProduct;
+  @Input() selectedProduct: ListProduct;
   @Output() createdProduct: EventEmitter<any> = new EventEmitter();
 
-  productForm = this.form.group({
+  productForm: FormGroup = this.form.group({
     name: ['', [Validators.required]],
-    stock: ['', [Validators.required]],
-    price: ['', [Validators.required]],
-    isActive: [''],
+    stock: [0, [Validators.required]],
+    price: [0, [Validators.required]],
+    isActive: [false],
   });
 
-  ngOnInit(): void {
-    
-    
-    this.setProduct(this.selectedProduct);
-  }
+  ngOnInit(): void { }
 
-  constructor(private form: FormBuilder, private service: ProductService) {}
-  
+  constructor(private form: FormBuilder,
+    private service: ProductService,
+    private toastr: CustomToastrService) { }
 
-  saveOrUpdate() {
+
+  create() {
     if (this.productForm.valid) {
       let returnModel: object = new Object({
-        id: this.selectedId,
         name: this.productForm.value.name,
         price: this.productForm.value.price,
         stock: this.productForm.value.stock,
         isActive: this.productForm.value?.isActive,
       });
-      if (this.selectedId > 0) {
-        this.service.update(returnModel);
-        console.log(this.selectedId);
-        
-        this.createdProduct.emit();
-      } else {
-        this.service.add(returnModel,this.clearForm);
-        console.log(this.selectedId);
-        this.createdProduct.emit();
-      }
+      this.service.add(returnModel, this.onSuccess, this.onError);
+      this.createdProduct.emit(returnModel);
     }
   }
 
-  setProduct(product:ListProduct){
-    // this.productForm.controls.name.setValue(product.name);
-    // this.productForm.controls.price.setValue(product.price.toString());
-    // this.productForm.controls.stock.setValue(product.stock.toString());
-    // this.productForm.controls.isActive.setValue(product.isActive.toString());
+  onSuccess = () => {
+    this.toastr.message(
+      'Product has been added successfully!',
+      'Successfull!',
+      {
+        closeButton: true,
+        messageType: ToastrMessageType.Success,
+        position: ToastrPosition.BottomRight,
+        timeOut: 1500
+      }
+    );
+    this.resetForm();
   }
 
-  clearForm() {
-    this.selectedId = 0;
-    this.productForm.get("name")?.setValue('');
-    // this.productForm.get("stock")?.setValue(0);
-    // this.productForm.get("price")?.setValue(0);
-    // this.productForm.get("isActive")?.setValue(false);
+  onError = () => {
+    this.toastr.message('Product could not added!', 'Error!', {
+      closeButton: true,
+      messageType: ToastrMessageType.Error,
+      position: ToastrPosition.BottomRight,
+      timeOut: 1500
+    });
+  }
+
+
+  resetForm() {
+    this.productForm.reset({
+      name: '',
+      stock: 0,
+      price: 0,
+      isActive: false
+    })
   }
 }
 

@@ -8,21 +8,15 @@ import { ListProductComponent } from './list-product/list-product.component';
 })
 export class ProductsComponent implements OnInit {
 
-  selectedProduct:any;
+  selectedProduct: any;
   constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  
-  @ViewChild(ListProductComponent) listComponent : ListProductComponent
-  createdProduct(createdProduct:any){
+  @ViewChild(ListProductComponent) listComponent: ListProductComponent
+  createdProduct(createdProduct: any) {
     this.listComponent.getAll();
+    console.log("event emitter triggered");
+    
   }
-
-  onSelectedProduct(){
-    this.selectedProduct = this.listComponent.onSelectedProduct();
-    console.log("Select Product method triggered!");
-    console.log( this.listComponent.onSelectedProduct());
-  }
-
 }

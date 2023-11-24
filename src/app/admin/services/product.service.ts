@@ -19,7 +19,7 @@ export class ProductService {
     private toastr: CustomToastrService
   ) { }
 
-  add(model: object, successCallBack?: () => void, errorCallBack?: () => void) {
+  add(model: object, successCallBack?: () => void, errorCallBack?: (errorHeader: string, errorContent: string[]) => void) {
     this.http
       .post<object>(
         {
@@ -28,27 +28,14 @@ export class ProductService {
         },
         model
       )
-      .subscribe({
-        next: (res) => {
-          if (res) {
-            successCallBack();
-          } else {
-            errorCallBack();
+      .subscribe(result => {
+        successCallBack();
+      }, (errorResponse: HttpErrorResponse) => {
+        const _errors: Array<{ key: string; value: Array<string> }> = errorResponse.error;
 
-          }
-        },
-        error: (err) => {
-          const _errors: Array<{ key: string; value: Array<string> }> =
-            err.error;
-          _errors.forEach(x => {
-            this.toastr.message(`${x.value}`, `Error at ${x.key}!`, {
-              closeButton: true,
-              messageType: ToastrMessageType.Error,
-              position: ToastrPosition.BottomRight,
-              timeOut: 1500
-            });
-          });
-        },
+        _errors.forEach(x => {
+          errorCallBack(x.key, x.value)
+        });
       });
   }
 
@@ -100,18 +87,17 @@ export class ProductService {
   }
 
   async getAll(pageNumber: number = 0, pageSize: number = 10, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number; data: ListProduct[] }> {
-    var data:Promise<{ totalCount: number; data: ListProduct[] }> = this.http.get<{ totalCount: number; data: ListProduct[] }>({
+    var data: Promise<{ totalCount: number; data: ListProduct[] }> = this.http.get<{ totalCount: number; data: ListProduct[] }>({
       controller: 'Products',
       action: 'GetAll',
       queryString: `page=${pageNumber}&size=${pageSize}`
     }).toPromise();
 
     data.then(d => successCallBack())
-    .catch((errorResponse:HttpErrorResponse) => errorCallBack(errorResponse.message))
+      .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message))
 
     return await data;
   }
-
 
   getById(id: string): Observable<ListProduct> {
     return this.http.get<ListProduct>({

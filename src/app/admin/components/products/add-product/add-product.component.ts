@@ -58,12 +58,14 @@ export class AddProductComponent implements OnInit {
     this.resetForm();
   }
 
-  onError = () => {
-    this.toastr.message('Product could not added!', 'Error!', {
-      closeButton: true,
-      messageType: ToastrMessageType.Error,
-      position: ToastrPosition.BottomRight,
-      timeOut: 1500
+  onError = (errorHeader: string, errorContent: string[]) => {
+    errorContent.forEach(x => {
+      this.toastr.message(x, errorHeader, {
+        closeButton: true,
+        messageType: ToastrMessageType.Error,
+        position: ToastrPosition.BottomRight,
+        timeOut: 1500
+      });
     });
   }
 

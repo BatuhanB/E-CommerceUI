@@ -62,7 +62,8 @@ export class ListProductComponent implements OnInit, AfterViewInit {
     let pageSize = this.paginator ? this.paginator.pageSize : 10;
 
     const data: { totalCount: number, data: ListProduct[] } =
-    await this.service.getAll(pageNumber + 1, pageSize, this.onSuccess);
+      await this.service.getAll(pageNumber + 1, pageSize, this.onSuccess);
+
     this.dataSource.data = data.data;
     this.dataSource.sort = this.sort;
     this.paginator.length = data.totalCount;
@@ -70,7 +71,6 @@ export class ListProductComponent implements OnInit, AfterViewInit {
 
   onSuccess = () => {
     this.spinnerService.hide('spinner1');
-    console.log("getAll method triggered by event emitter!");
   }
 
   getById(id: string) {

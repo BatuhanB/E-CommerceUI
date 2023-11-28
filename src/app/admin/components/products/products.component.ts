@@ -16,7 +16,5 @@ export class ProductsComponent implements OnInit {
   @ViewChild(ListProductComponent) listComponent: ListProductComponent
   createdProduct(createdProduct: any) {
     this.listComponent.getAll();
-    console.log("event emitter triggered");
-    
   }
 }

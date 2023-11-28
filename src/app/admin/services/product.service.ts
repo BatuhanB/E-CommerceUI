@@ -1,4 +1,4 @@
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, delay, firstValueFrom } from 'rxjs';
 import { CustomHttpClientService } from './../../services/custom-http-client.service';
 import { Injectable } from '@angular/core';
 import {
@@ -85,6 +85,8 @@ export class ProductService {
         },
       });
   }
+
+  
 
   async getAll(pageNumber: number = 0, pageSize: number = 10, successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void): Promise<{ totalCount: number; data: ListProduct[] }> {
     var data: Promise<{ totalCount: number; data: ListProduct[] }> = this.http.get<{ totalCount: number; data: ListProduct[] }>({

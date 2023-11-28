@@ -14,7 +14,7 @@ export class AddProductComponent implements OnInit {
 
   selectedId: string;
   productsModel: ListProduct[];
-  @Input() selectedProduct: ListProduct;
+  // @Input() selectedProduct: ListProduct;
   @Output() createdProduct: EventEmitter<any> = new EventEmitter();
 
   productForm: FormGroup = this.form.group({

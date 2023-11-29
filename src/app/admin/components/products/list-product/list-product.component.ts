@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListProduct } from '../productmodels/list-products';
-import { ProductService } from 'src/app/admin/services/product.service';
+import { ProductService } from 'src/app/admin/services/product/product.service';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 declare var $: any;

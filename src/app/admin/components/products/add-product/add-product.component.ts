@@ -1,12 +1,5 @@
-import { ProductService } from './../../../services/product.service';
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ProductService } from './../../../services/product/product.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ListProduct } from '../productmodels/list-products';
 import {
@@ -14,6 +7,7 @@ import {
   ToastrMessageType,
   ToastrPosition,
 } from 'src/app/services/custom-toastr.service';
+import { FileUploadOptions } from 'src/app/services/file-upload/file-upload.component';
 
 @Component({
   selector: 'app-add-product',
@@ -21,10 +15,15 @@ import {
   styleUrls: ['./add-product.component.scss'],
 })
 export class AddProductComponent implements OnInit {
-  selectedId: string;
   productsModel: ListProduct[];
-  // @Input() selectedProduct: ListProduct;
+
   @Output() createdProduct: EventEmitter<any> = new EventEmitter();
+  @Output() fileUploadOptions: Partial<FileUploadOptions> = {
+    action: 'Upload',
+    controller: 'Products',
+    description: 'Please upload product images',
+    accept: '.png, .jpg, .jpeg',
+  };
 
   productForm: FormGroup = this.form.group({
     name: ['', [Validators.required]],

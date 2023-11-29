@@ -56,11 +56,16 @@ export class ListProductComponent implements OnInit, AfterViewInit {
     }
   }
 
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   async getAll() {
     this.spinnerService.show('spinner1');
     let pageNumber = this.paginator ? this.paginator.pageIndex : 0;
     let pageSize = this.paginator ? this.paginator.pageSize : 10;
 
+    await this.delay(500);
     const data: { totalCount: number, data: ListProduct[] } =
       await this.service.getAll(pageNumber + 1, pageSize, this.onSuccess);
 

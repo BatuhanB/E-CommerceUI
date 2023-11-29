@@ -9,7 +9,7 @@ import {
   Renderer2,
   EventEmitter,
 } from '@angular/core';
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../services/product/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
 
